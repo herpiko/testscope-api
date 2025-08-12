@@ -1,0 +1,15 @@
+port: 4443
+services:
+  - name: proxy
+    hostname: "localhost"
+    routes:
+    - prefix: /api
+      name: api
+      upstream: 172.17.0.1
+      #upstream: docker.for.mac.localhost
+      port: 8000
+    - prefix: /
+      name: app
+      upstream: 172.17.0.1
+      #upstream: docker.for.mac.localhost
+      port: 3000

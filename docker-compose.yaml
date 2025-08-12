@@ -1,0 +1,37 @@
+version: '3.1'
+services:
+  testdb:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: ${DB_PASS}
+      PGPASSWORD: ${DB_PASS}
+      PGDATA: /data
+    command: postgres -N 1000 -c fsync=off -c full_page_writes=off
+    ports:
+      - 5432:5432
+  testminio:
+    environment:
+      MINIO_SECRET_KEY: ${S3_SECRET_KEY}
+      MINIO_ACCESS_KEY: ${S3_ACCESS_KEY}
+    image: minio/minio
+    command: server /data
+    ports:
+      - 9000:9000
+  proxy:
+    image: citradigital/proxy:local
+    restart: always
+    ports:
+    - 4443:4443
+    environment:
+    - DEBUG=1
+    volumes:
+    - ./certs/fullchain.pem:/fullchain.pem
+    - ./certs/privkey.pem:/privkey.pem
+    - ./services.yaml:/services.yaml:ro
+
+networks:
+  default:
+    name: testscopeio_default
+    external: true

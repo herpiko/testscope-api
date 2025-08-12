@@ -1,0 +1,12 @@
+{
+  "type": "foobar",
+  "project_id": "testscope-io",
+  "private_key_id": "foobar",
+  "private_key": "foobar",
+  "client_email": "foobar",
+  "client_id": "foobar",
+  "auth_uri": "foobar",
+  "token_uri": "foobar",
+  "auth_provider_x509_cert_url": "foobar",
+  "client_x509_cert_url": "foobar"
+}
