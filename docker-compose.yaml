@@ -1,6 +1,7 @@
 version: '3.1'
 services:
   testdb:
+    container_name: db
     image: postgres:13-alpine
     environment:
       POSTGRES_USER: ${DB_USER}
@@ -12,6 +13,7 @@ services:
     ports:
       - 5432:5432
   testminio:
+    container_name: minio
     environment:
       MINIO_SECRET_KEY: ${S3_SECRET_KEY}
       MINIO_ACCESS_KEY: ${S3_ACCESS_KEY}
@@ -20,6 +22,7 @@ services:
     ports:
       - 9000:9000
   proxy:
+    container_name: proxy
     image: citradigital/proxy:local
     restart: always
     ports:

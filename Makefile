@@ -26,8 +26,10 @@ test:
 cov:
 	go tool cover -html=coverage.html
 
-deploy:
-	docker build --platform linux/amd64 -t ${PROJECT_NAME}-api:latest .
+build-docker:
+	docker build --platform linux/amd64 -t herpiko/${PROJECT_NAME}-api:latest .
+
+deploy: build-docker
 	docker save testscopeio-api:latest > testscopeio-api-latest.img
 	scp testscopeio-api-latest.img user@foobar:~/api.img
 	ssh user@foobar 'docker load < api.img'
